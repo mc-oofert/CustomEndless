@@ -45,10 +45,7 @@ public class HoverDetector : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void UpdateSettingState(bool isEnabled)
     {
-        if (settingsManager != null)
-        {
-            settingsManager.SetBool(settingsTag, isEnabled);
-        }
+        settingsManager?.SetBool(settingsTag, isEnabled);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

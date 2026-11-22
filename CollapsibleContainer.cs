@@ -1,8 +1,8 @@
+// These kinds of files get assigned to the UI elements with that uhh.... unity thingy. The thingy that tells the monobehaviors where to look. That thing.
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-// These kinds of files get assigned to the UI elements with that uhh.... unity thingy. The thingy that tells the monobehaviors where to look. That thing.
 public class CollapsibleContainer : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private bool startExpanded = true;

@@ -146,7 +146,7 @@ public class MenuSettingsManager : MonoBehaviour
         if (settingType == SettingType.Integer && int.TryParse(defaultValue, out int intDefault)) intDefaults[settingTag] = intDefault;
         if (settingType == SettingType.Float && float.TryParse(defaultValue, out float floatDefault)) floatDefaults[settingTag] = floatDefault;
 
-        UISettingsManager manager = settingsManager != null ? settingsManager : UISettingsManager.instance;
+        UISettingsManager manager = settingsManager ?? UISettingsManager.instance;
         if (manager == null) return;
         if (settingType == SettingType.Integer && int.TryParse(defaultValue, out int intVal) && !manager.HasInt(settingTag)) manager.SetInt(settingTag, EndlessConfiguration.CustomUIManager.SettingCounts.TryGetValue(settingTag, out int savedInt) ? savedInt : intVal);
         if (settingType == SettingType.Float && float.TryParse(defaultValue, out float floatVal) && !manager.HasFloat(settingTag)) manager.SetFloat(settingTag, EndlessConfiguration.CustomUIManager.SettingFloats.TryGetValue(settingTag, out float savedFloat) ? savedFloat : floatVal);
@@ -155,7 +155,7 @@ public class MenuSettingsManager : MonoBehaviour
 
     public void ResetConfiguredSettings(string excludedTag)
     {
-        UISettingsManager manager = settingsManager != null ? settingsManager : UISettingsManager.instance;
+        UISettingsManager manager = settingsManager ?? UISettingsManager.instance;
         if (manager == null) return;
         for (int i = 0; i < registeredSettings.Count; i++)
         {
@@ -193,7 +193,7 @@ public class MenuSettingsManager : MonoBehaviour
         RefreshContentLayout(true);
         activeMenuTag = menuTag;
         Transform source = GetControls();
-        if (source != null) source.gameObject.SetActive(false);
+        source?.gameObject.SetActive(false);
         return contentContainer;
     }
 
@@ -266,12 +266,12 @@ public class MenuSettingsManager : MonoBehaviour
     public TMP_Text GetTextTemplate(bool button)
     {
         GameObject template = button ? templateDropdown : templateInteger;
-        return template != null ? template.transform.Find("Title")?.GetComponent<TMP_Text>() : null;
+        return template?.transform.Find("Title")?.GetComponent<TMP_Text>();
     }
 
     public void StylePanel(Image image)
     {
-        Image source = templateDropdown != null ? templateDropdown.GetComponent<Image>() : null;
+        Image source = templateDropdown?.GetComponent<Image>();
         if (source == null && templateInteger != null) source = templateInteger.GetComponent<Image>();
         if (source == null) return;
         image.sprite = source.sprite;
@@ -291,7 +291,7 @@ public class MenuSettingsManager : MonoBehaviour
     public Presets.PresetData CaptureMenuSettings(string menuTag, int slot = -1)
     {
         Presets.PresetData result = new Presets.PresetData { name = menuTag };
-        UISettingsManager manager = settingsManager != null ? settingsManager : UISettingsManager.instance;
+        UISettingsManager manager = settingsManager ?? UISettingsManager.instance;
         foreach (SettingData data in registeredSettings)
         {
             if (data.menuTag != menuTag) continue;
@@ -407,7 +407,7 @@ public class MenuSettingsManager : MonoBehaviour
         RefreshContentLayout(true);
         activeMenuTag = null;
         Transform source = GetControls();
-        if (source != null) source.gameObject.SetActive(true);
+        source?.gameObject.SetActive(true);
     }
 
     public static bool IsDefaultBool(string settingTag, bool value)
@@ -440,7 +440,7 @@ public class MenuSettingsManager : MonoBehaviour
         RefreshContentLayout(true);
         activeMenuTag = menuTag;
         Transform source = GetControls();
-        if (source != null) source.gameObject.SetActive(false);
+        source?.gameObject.SetActive(false);
 
         RegionFlavorText.Show(this, menuTag);
         Dictionary<string, Transform> activeDropdowns = new Dictionary<string, Transform>();
@@ -613,7 +613,7 @@ public class MenuSettingsManager : MonoBehaviour
         {
             RectTransform child = children[i];
             CollapsibleContainer dropdown = child.GetComponent<CollapsibleContainer>();
-            if (dropdown != null) dropdown.RefreshHeight();
+            dropdown?.RefreshHeight();
             if (child.GetComponent<LayoutGroup>() != null) LayoutRebuilder.ForceRebuildLayoutImmediate(child);
         }
         LayoutRebuilder.ForceRebuildLayoutImmediate(content);
@@ -621,7 +621,7 @@ public class MenuSettingsManager : MonoBehaviour
         ScrollRect scroll = GetComponent<ScrollRect>();
         if (scroll == null) return;
         scroll.StopMovement();
-        RectTransform viewport = scroll.viewport != null ? scroll.viewport : transform as RectTransform;
+        RectTransform viewport = scroll.viewport ?? transform as RectTransform;
         float maximum = Mathf.Max(0f, content.rect.height - viewport.rect.height);
         Vector2 position = previousPosition;
         position.x = 0f;
@@ -632,9 +632,6 @@ public class MenuSettingsManager : MonoBehaviour
     private void SetPrivateField(object target, string fieldName, object value)
     {
         FieldInfo field = target.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
-        if (field != null)
-        {
-            field.SetValue(target, value);
-        }
+        field?.SetValue(target, value);
     }
 }

@@ -13,11 +13,12 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
+  <Import Project="Path.props" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\profiles\Default\BepInEx\plugins\Unknown-CustomEndless.dll\</OutputPath>
+    <OutputPath>$(BepInExPath)\plugins\Unknown-CustomEndless.dll\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,595 +32,51 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ALINE">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\ALINE.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="andywiecko.BurstTriangulator">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\andywiecko.BurstTriangulator.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="AstarPathfindingProject">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\AstarPathfindingProject.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BakeryAPV">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\BakeryAPV.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BakeryECS">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\BakeryECS.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BakeryRuntimeAssembly">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\BakeryRuntimeAssembly.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BepInEx">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\BepInEx.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BepInEx.Harmony">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\BepInEx.Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BepInEx.Preloader">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\BepInEx.Preloader.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Coffee.SoftMaskForUGUI">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Coffee.SoftMaskForUGUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DarkMachineUI">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\DarkMachineUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\DOTween.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Drawing">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Drawing.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Febucci.Attributes.Runtime">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Febucci.Attributes.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Febucci.TextAnimator.Runtime">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Febucci.TextAnimator.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Febucci.TextAnimator.TMP.Runtime">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Febucci.TextAnimator.TMP.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="HarmonyXInterop">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\HarmonyXInterop.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod.RuntimeDetour">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\MonoMod.RuntimeDetour.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod.Utils">
-      <HintPath>C:\Users\imawa\AppData\Roaming\r2modmanPlus-local\WhiteKnuckle\cache\BepInEx-BepInExPack\5.4.2305\BepInExPack\BepInEx\core\MonoMod.Utils.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PackageTools">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\PackageTools.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PrefabBaker">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\PrefabBaker.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SeppePeelman.EditorTools.SurfaceAlignTool">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\SeppePeelman.EditorTools.SurfaceAlignTool.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Attributes">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Sirenix.OdinInspector.Attributes.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Sirenix.OdinInspector.Modules.Unity.Addressables">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Sirenix.OdinInspector.Modules.Unity.Addressables.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Sirenix.Utilities">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Sirenix.Utilities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="$(BepInExPath)\core\*.dll" Exclude="$(BepInExPath)\core\*20.dll"/>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="netstandard">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\netstandard.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Memory">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\System.Memory.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Unity.Addressables">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Addressables.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Burst">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Burst.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Collections">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Collections.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Deformations">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Deformations.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Entities">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Entities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Entities.Hybrid">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Entities.Hybrid.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Entities.Hybrid.HybridComponents">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Entities.Hybrid.HybridComponents.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Entities.UI">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Entities.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.InputSystem.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.InputSystem.ForUI">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.InputSystem.ForUI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.InputSystem.InGameHints">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.InputSystem.InGameHints.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.002">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.InternalAPIEngineBridge.002.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Mathematics.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Extensions">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Mathematics.Extensions.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Mathematics.Extensions.Hybrid">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Mathematics.Extensions.Hybrid.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.MemoryProfiler">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.MemoryProfiler.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Postprocessing.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Profiling.Core">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Profiling.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.ResourceManager">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.ResourceManager.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Scenes">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Scenes.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.ScriptableBuildPipeline">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.ScriptableBuildPipeline.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Serialization">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Serialization.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Splines">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Splines.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.TextMeshPro.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Timeline">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Timeline.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Transforms">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Transforms.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Transforms.Hybrid">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.Transforms.Hybrid.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Core">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.VisualScripting.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Flow">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.VisualScripting.Flow.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.State">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\Unity.VisualScripting.State.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.AccessibilityModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AIModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.AIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AndroidJNIModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ARModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.ARModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.AudioModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ClothModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.ClothModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.ClusterInputModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.ClusterRendererModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ContentLoadModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.ContentLoadModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.CrashReportingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.DirectorModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.DirectorModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.DSPGraphModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.DSPGraphModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.GameCenterModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.GIModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.GIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.GridModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.GridModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.HotReloadModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.HotReloadModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.InputForUIModule">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.InputForUIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.InputModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.InputModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.LocalizationModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.LocalizationModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.NVIDIAModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.NVIDIAModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.PerformanceReportingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.PropertiesModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.PropertiesModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.ScreenCaptureModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SharedInternalsModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.StreamingModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.StreamingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SubstanceModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.SubstanceModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.SubsystemsModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextCoreFontEngineModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextCoreTextEngineModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TilemapModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.TilemapModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TLSModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.TLSModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UIModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UmbraModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityAnalyticsCommonModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityAnalyticsModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityConnectModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityConnectModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityCurlModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityCurlModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.VehiclesModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VFXModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.VFXModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VideoModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.VideoModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VirtualTexturingModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.VirtualTexturingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.VRModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.VRModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.WindModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.WindModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.XRModule">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityEngine.XRModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityMeshDecimation">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\UnityMeshDecimation.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="WFowler1.BspImporter.Runtime">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\WFowler1.BspImporter.Runtime.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="XNode">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\White Knuckle\White Knuckle_Data\Managed\XNode.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="$(ManagedPath)\Assembly-CSharp.dll" />
+    <Reference Include="$(ManagedPath)\ALINE.dll" />
+	<Reference Include="$(ManagedPath)\Newtonsoft.Json.dll" />
+    <Reference Include="$(ManagedPath)\Unity*.dll"/>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoosterRoaches.cs" />
     <Compile Include="BoostProcGen.cs" />
     <Compile Include="CollapsibleContainer.cs" />
-    <Compile Include="Egg.cs" />
+    <Compile Include="Items\Wishbone.cs" />
     <Compile Include="EndlessSettings.cs" />
     <Compile Include="GameUtils.cs" />
-    <Compile Include="HarderMode.cs" />
+    <Compile Include="Mode\HarderMode.cs" />
     <Compile Include="HoverDetector.cs" />
     <Compile Include="LevelLoader.cs" />
     <Compile Include="MenuSettingsManager.cs" />
     <Compile Include="NumericInputControls.cs" />
     <Compile Include="OrderingContainer.cs" />
-    <Compile Include="PerkBuilder.cs" />
-    <Compile Include="PerkPatcher.cs" />
-    <Compile Include="PerkRegistry.cs" />
+    <Compile Include="Perk\PerkBuilder.cs" />
+    <Compile Include="Perk\PerkPatcher.cs" />
+    <Compile Include="Perk\PerkRegistry.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="ProcGen.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EndlessConfiguration.cs" />
-    <Compile Include="EndlessConfiguration.Duct.cs" />
-    <Compile Include="EndlessConfiguration.Diver.cs" />
-    <Compile Include="EndlessConfiguration.CustomUI.cs" />
-    <Compile Include="EndlessConfiguration.GamemodePatches.cs" />
-    <Compile Include="EndlessConfiguration.Patches.cs" />
-    <Compile Include="EndlessConfiguration.RegionBuilding.cs" />
-    <Compile Include="EndlessConfiguration.Breakrooms.cs" />
-    <Compile Include="EndlessConfiguration.ConnectorAdapters.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.Duct.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.Diver.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.CustomUI.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.GamemodePatches.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.Patches.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.RegionBuilding.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.Breakrooms.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.ConnectorAdapters.cs" />
     <Compile Include="TransitionRoomDoors.cs" />
     <Compile Include="ImportedHandholdComponentsPatch.cs" />
-    <Compile Include="EndlessConfiguration.Registries.cs" />
-    <Compile Include="EndlessConfiguration.RuntimeCleanup.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.Registries.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.RuntimeCleanup.cs" />
     <Compile Include="EndlessEnemyScaling.cs" />
     <Compile Include="CampaignWorldGenerationPatches.cs" />
     <Compile Include="EmptyRegionGeneration.cs" />
@@ -627,27 +84,30 @@
     <Compile Include="RemoveOnClick.cs" />
     <Compile Include="RandomContainer.cs" />
     <Compile Include="Rotator.cs" />
-    <Compile Include="ShadowSpider.cs" />
-    <Compile Include="Cimim.cs" />
+    <Compile Include="Denizens\ShadowSpider.cs" />
+    <Compile Include="Denizens\Cimim.cs" />
     <Compile Include="UnseenHandItem.cs" />
     <Compile Include="TeleportTrigger.cs" />
     <Compile Include="UISettingsManager.cs" />
-    <Compile Include="TemplateBool.cs" />
-    <Compile Include="TemplateFloat.cs" />
-    <Compile Include="TemplateInteger.cs" />
-    <Compile Include="TemplateRegion.cs" />
+    <Compile Include="Template\TemplateBool.cs" />
+    <Compile Include="Template\TemplateFloat.cs" />
+    <Compile Include="Template\TemplateInteger.cs" />
+    <Compile Include="Template\TemplateRegion.cs" />
     <Compile Include="SubTabContainer.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ModSaveData.cs" />
     <Compile Include="RegionMenuData.cs" />
-    <Compile Include="BalancedMode.cs" />
+    <Compile Include="Mode\BalancedMode.cs" />
     <Compile Include="Play.cs" />
     <Compile Include="Presets.cs" />
     <Compile Include="Challenges.cs" />
     <Compile Include="ChallengeGoals.cs" />
     <Compile Include="CustomRegions.cs" />
     <Compile Include="CustomRegionEditor.cs" />
-    <Compile Include="EndlessConfiguration.CustomRegions.cs" />
+    <Compile Include="EndlessConfiguration\EndlessConfiguration.CustomRegions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  </Project>
+</Project>

@@ -11,7 +11,7 @@ public class ModConfig : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         menu = GetComponentInParent<Canvas>(true)?.GetComponentInChildren<MenuSettingsManager>(true);
-        if (menu != null) menu.Register("Settings", "Full Custom", "full_custom", SettingType.Bool, "false");
+        menu?.Register("Settings", "Full Custom", "full_custom", SettingType.Bool, "false");
     }
 
     private void Update()

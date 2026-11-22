@@ -40,11 +40,9 @@ public class RandomContainer : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (slider != null)
-            slider.onValueChanged.RemoveListener(OnSliderValueChanged);
+        slider?.onValueChanged.RemoveListener(OnSliderValueChanged);
 
-        if (secondarySlider != null)
-            secondarySlider.onValueChanged.RemoveListener(OnSecondarySliderValueChanged);
+        secondarySlider?.onValueChanged.RemoveListener(OnSecondarySliderValueChanged);
 
         if (Instance == this)
             Instance = null;
@@ -191,7 +189,7 @@ public class RandomContainer : MonoBehaviour
 
     private static TMP_Text FindNumber(Transform handle)
     {
-        return handle == null ? null : handle.Find("Number")?.GetComponent<TMP_Text>();
+        return handle?.Find("Number")?.GetComponent<TMP_Text>();
     }
 
     private static void SetNumber(TMP_Text text, int value)

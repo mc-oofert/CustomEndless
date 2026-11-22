@@ -126,7 +126,7 @@ public class BoostProcGen
             foreach (var itemDef in data.ProvidedItems)
             {
                 var itemPrefabCached = EndlessConfiguration.GetCachedObject<Item_Object>(itemDef.Id);
-                GameObject itemPrefab = itemPrefabCached != null ? itemPrefabCached.gameObject : null;
+                GameObject itemPrefab = itemPrefabCached?.gameObject;
 
                 Vector3 localOffset = new Vector3(UnityEngine.Random.Range(offsetMin, 1f), 1f, UnityEngine.Random.Range(offsetMin, 1f));
                 Vector3 spawnPosition = data.Position + (data.Rotation * localOffset);
@@ -168,7 +168,7 @@ public class BoostProcGen
             foreach (var itemDef in data.ProvidedItems)
             {
                 var itemPrefabCached = EndlessConfiguration.GetCachedObject<Item_Object>(itemDef.Id);
-                GameObject itemPrefab = itemPrefabCached != null ? itemPrefabCached.gameObject : null;
+                GameObject itemPrefab = itemPrefabCached?.gameObject;
 
                 Vector3 spawnPosition = data.Position + (data.Rotation * new Vector3(0f, eggOffset, 0f));
 

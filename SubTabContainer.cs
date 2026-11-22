@@ -303,7 +303,7 @@ public class SubTabContainer : MonoBehaviour
             bool active = string.Equals(pair.Key, selectedGroup, StringComparison.OrdinalIgnoreCase);
             List<TemplateRegion> regions = pair.Value;
             for (int i = 0; i < regions.Count; i++)
-                if (regions[i] != null) regions[i].gameObject.SetActive(active && !IsRemovedOption(regions[i].RegionName));
+                regions[i]?.gameObject.SetActive(active && !IsRemovedOption(regions[i].RegionName));
         }
         for (int i = 0; i < tabButtons.Count; i++)
         {
@@ -332,10 +332,11 @@ public class SubTabContainer : MonoBehaviour
 
     public static bool IsRandomizable(string regionName)
     {
-        if (regionName == CustomRegions.TemplateName) return false;
-        if (string.IsNullOrEmpty(regionName)) return false;
-        if (Randomizable.TryGetValue(regionName, out bool value)) return value;
-        return !DefaultExcluded.Contains(regionName);
+        return regionName == CustomRegions.TemplateName
+            ? false
+            : string.IsNullOrEmpty(regionName)
+            ? false
+            : Randomizable.TryGetValue(regionName, out bool value) ? value : !DefaultExcluded.Contains(regionName);
     }
 
     public static void SetRandomizable(string regionName, bool value)
@@ -344,7 +345,7 @@ public class SubTabContainer : MonoBehaviour
         Randomizable[regionName] = value;
         if (Catalog.TryGetValue(regionName, out RegionRecord record)) record.randomizable = value;
         UISettingsManager manager = UISettingsManager.instance;
-        if (manager != null) manager.SetBool(regionName.ToLowerInvariant() + "_randomizable", value);
+        manager?.SetBool(regionName.ToLowerInvariant() + "_randomizable", value);
         TemplateRegion[] regions = FindObjectsOfType<TemplateRegion>(true);
         for (int i = 0; i < regions.Length; i++)
             if (regions[i] != null && string.Equals(regions[i].RegionName, regionName, StringComparison.OrdinalIgnoreCase)) regions[i].RefreshRandomizableVisual();
@@ -356,7 +357,7 @@ public class SubTabContainer : MonoBehaviour
         if (string.IsNullOrEmpty(regionName)) return;
         if (!Randomizable.ContainsKey(regionName)) Randomizable[regionName] = defaultValue;
         UISettingsManager manager = UISettingsManager.instance;
-        if (manager != null) manager.SetBool(regionName.ToLowerInvariant() + "_randomizable", Randomizable[regionName]);
+        manager?.SetBool(regionName.ToLowerInvariant() + "_randomizable", Randomizable[regionName]);
     }
 
     public static List<ResolvedSlot> ExpandSlot(int slotIndex, string selection)
@@ -378,8 +379,7 @@ public class SubTabContainer : MonoBehaviour
     {
         List<string> choices = Eligible("Random", null, false);
         choices.RemoveAll(value => string.Equals(value, "Random Any", StringComparison.OrdinalIgnoreCase));
-        if (choices.Count == 0) return "Random Region";
-        return choices[UnityEngine.Random.Range(0, choices.Count)];
+        return choices.Count == 0 ? "Random Region" : choices[UnityEngine.Random.Range(0, choices.Count)];
     }
 
     private void Build()
@@ -524,15 +524,16 @@ public class SubTabContainer : MonoBehaviour
 
     private static bool IsRemovedOption(string name)
     {
-        if (Plugin.DumbItDown && (CustomRegions.IsCustom(name) || name == CustomRegions.TemplateName)) return true;
-        return string.Equals(name, "Random Region/Misc", StringComparison.OrdinalIgnoreCase) || string.Equals(name, "Random Misc", StringComparison.OrdinalIgnoreCase) || (tempCampDis && string.Equals(name, "Campaign", StringComparison.OrdinalIgnoreCase));
+        return Plugin.DumbItDown && (CustomRegions.IsCustom(name) || name == CustomRegions.TemplateName)
+            ? true
+            : string.Equals(name, "Random Region/Misc", StringComparison.OrdinalIgnoreCase) || string.Equals(name, "Random Misc", StringComparison.OrdinalIgnoreCase) || (tempCampDis && string.Equals(name, "Campaign", StringComparison.OrdinalIgnoreCase));
     }
 
     private static string GetDefaultGroup(string regionName)
     {
-        if (regionName == CustomRegions.TemplateName || CustomRegions.IsCustom(regionName)) return "Custom";
-        if (GroupByRegion.TryGetValue(regionName ?? string.Empty, out string group)) return group;
-        return "Regions";
+        return regionName == CustomRegions.TemplateName || CustomRegions.IsCustom(regionName)
+            ? "Custom"
+            : GroupByRegion.TryGetValue(regionName ?? string.Empty, out string group) ? group : "Regions";
     }
 
     private static string MigrateGroupName(string groupName)
@@ -620,23 +621,25 @@ public class SubTabContainer : MonoBehaviour
     {
         string full = "slot_" + slot + "_" + key;
         UISettingsManager manager = UISettingsManager.instance;
-        if (manager != null) return manager.GetBool(full, EndlessConfiguration.CustomUIManager.GetToggleState(full));
-        return EndlessConfiguration.CustomUIManager.GetToggleState(full);
+        return manager != null
+            ? manager.GetBool(full, EndlessConfiguration.CustomUIManager.GetToggleState(full))
+            : EndlessConfiguration.CustomUIManager.GetToggleState(full);
     }
 
     private static int GetSlotInt(int slot, string key, int defaultValue)
     {
         string full = "slot_" + slot + "_" + key;
         UISettingsManager manager = UISettingsManager.instance;
-        if (manager != null) return manager.GetInt(full, EndlessConfiguration.CustomUIManager.GetCountState(full, defaultValue));
-        return EndlessConfiguration.CustomUIManager.GetCountState(full, defaultValue);
+        return manager != null
+            ? manager.GetInt(full, EndlessConfiguration.CustomUIManager.GetCountState(full, defaultValue))
+            : EndlessConfiguration.CustomUIManager.GetCountState(full, defaultValue);
     }
 
     private static void SetSlotBool(int slot, string key, bool value)
     {
         string full = "slot_" + slot + "_" + key;
         UISettingsManager manager = UISettingsManager.instance;
-        if (manager != null) manager.SetBool(full, value);
+        manager?.SetBool(full, value);
         EndlessConfiguration.CustomUIManager.SettingToggles[full] = value;
     }
 

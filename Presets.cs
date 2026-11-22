@@ -159,7 +159,7 @@ public class Presets : MonoBehaviour, IPointerClickHandler
         };
         row.title = GetTitleInput(instance);
         SetTitle(row, data.name);
-        if (row.title != null) row.title.onEndEdit.AddListener(value => Rename(row, value));
+        row.title?.onEndEdit.AddListener(value => Rename(row, value));
         Bind(instance, "Save", () => Save(row));
         Bind(instance, "Load", () => Load(row));
         Bind(instance, "Copy", () => Copy(row));
@@ -204,7 +204,7 @@ public class Presets : MonoBehaviour, IPointerClickHandler
             titleRect.offsetMax = new Vector2(-6f, -4f);
         }
         Transform input = FindNamed(row.transform, "Input");
-        if (input != null) input.gameObject.SetActive(false);
+        input?.gameObject.SetActive(false);
         GameObject actions = new GameObject("Actions", typeof(RectTransform), typeof(HorizontalLayoutGroup), typeof(LayoutElement));
         actions.transform.SetParent(row.transform, false);
         actions.GetComponent<LayoutElement>().ignoreLayout = true;
@@ -261,7 +261,7 @@ public class Presets : MonoBehaviour, IPointerClickHandler
     private void Bind(GameObject row, string action, Action callback)
     {
         Transform transform = FindNamed(row.transform, action);
-        Button button = transform != null ? transform.GetComponent<Button>() : null;
+        Button button = transform?.GetComponent<Button>();
         if (button == null) return;
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => callback());
@@ -324,7 +324,7 @@ public class Presets : MonoBehaviour, IPointerClickHandler
             return;
         }
         row.removed = true;
-        if (row.title != null) row.title.onEndEdit.RemoveAllListeners();
+        row.title?.onEndEdit.RemoveAllListeners();
         rows.Remove(row);
         if (row.gameObject != null)
         {
@@ -454,7 +454,7 @@ public class Presets : MonoBehaviour, IPointerClickHandler
         Dictionary<string, bool> bools = Read(data.boolKeys, data.boolValues);
         RestoreSlotState(data, ints, strings);
         UISettingsManager manager = UISettingsManager.instance;
-        if (manager != null) manager.RestoreSettings(ints, floats, strings, bools);
+        manager?.RestoreSettings(ints, floats, strings, bools);
         Replace(EndlessConfiguration.CustomUIManager.SettingCounts, ints);
         Replace(EndlessConfiguration.CustomUIManager.SettingFloats, floats);
         Replace(EndlessConfiguration.CustomUIManager.SettingStrings, strings);
@@ -529,7 +529,7 @@ public class Presets : MonoBehaviour, IPointerClickHandler
 
     private static void SetTitle(PresetRow row, string title)
     {
-        if (row.title != null) row.title.SetTextWithoutNotify(title);
+        row.title?.SetTextWithoutNotify(title);
     }
 
     private static string GetPath(string name)

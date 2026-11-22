@@ -39,8 +39,7 @@ public class Play : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnDestroy()
     {
-        if (button != null)
-            button.onClick.RemoveListener(Press);
+        button?.onClick.RemoveListener(Press);
     }
 
     private void Update()
@@ -105,8 +104,9 @@ public class Play : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         string[] suffixes = { "-SCORES", "-PROGRESS", "-BALANCED" };
         foreach (string suffix in suffixes)
             if (region.EndsWith(suffix, System.StringComparison.OrdinalIgnoreCase)) region = region.Substring(0, region.Length - suffix.Length);
-        if (region == CustomRegions.TemplateName || SubTabContainer.IsRandomOption(region)) return null;
-        return SubTabContainer.CachedRegions.ContainsKey(region) ? region : null;
+        return region == CustomRegions.TemplateName || SubTabContainer.IsRandomOption(region)
+            ? null
+            : SubTabContainer.CachedRegions.ContainsKey(region) ? region : null;
     }
 
     private void AnimateHover(bool entering)

@@ -103,7 +103,7 @@ namespace Celestial.CustomEndless
             if (source == null || source.gameObject == null) return;
             visual = UnityEngine.Object.Instantiate(source.gameObject, owner.GetUnseenHandItemOrigin(), Quaternion.identity);
             foreach (HandItem handItem in visual.GetComponentsInChildren<HandItem>(true)) handItem.enabled = false;
-            foreach (Hand_SpriteController controller in visual.GetComponentsInChildren<Hand_SpriteController>(true)) if (controller != null) controller.gameObject.SetActive(false);
+            foreach (Hand_SpriteController controller in visual.GetComponentsInChildren<Hand_SpriteController>(true)) controller?.gameObject.SetActive(false);
             foreach (Collider collider in visual.GetComponentsInChildren<Collider>(true)) collider.enabled = false;
             UpdateVisual();
         }
@@ -118,10 +118,13 @@ namespace Celestial.CustomEndless
             if (handItem is HandItem_Food) return new UnseenHandItemFood(owner, item, (HandItem_Food)handItem);
             if (handItem is HandItem_Melee) return new UnseenHandItemMelee(owner, item, (HandItem_Melee)handItem);
             if (handItem is HandItem_GrapplingHook) return new UnseenHandItemGrapplingHook(owner, item, (HandItem_GrapplingHook)handItem);
-            if (handItem is HandItem_Piton) return new UnseenHandItemPiton(owner, item, (HandItem_Piton)handItem);
-            if (handItem is HandItem_Rewind) return new UnseenHandItemRewind(owner, item, (HandItem_Rewind)handItem);
-            if (handItem is HandItem_Flashlight) return new UnseenHandItemFlashlight(owner, item, (HandItem_Flashlight)handItem);
-            return new UnseenHandItemUtility(owner, item, handItem);
+            return handItem is HandItem_Piton
+                ? new UnseenHandItemPiton(owner, item, (HandItem_Piton)handItem)
+                : handItem is HandItem_Rewind
+                ? new UnseenHandItemRewind(owner, item, (HandItem_Rewind)handItem)
+                : handItem is HandItem_Flashlight
+                ? new UnseenHandItemFlashlight(owner, item, (HandItem_Flashlight)handItem)
+                : (UnseenHandItem)new UnseenHandItemUtility(owner, item, handItem);
         }
 
         public abstract bool TryUse();
@@ -213,8 +216,9 @@ namespace Celestial.CustomEndless
 
         private static bool ContainsRebarName(Item item)
         {
-            if (item == null) return false;
-            return ContainsRebarText(item.itemName) || ContainsRebarText(item.prefabName) || ContainsRebarText(item.itemTag);
+            return item == null
+                ? false
+                : ContainsRebarText(item.itemName) || ContainsRebarText(item.prefabName) || ContainsRebarText(item.itemTag);
         }
 
         private static bool ContainsRebarText(string value)
@@ -274,7 +278,7 @@ namespace Celestial.CustomEndless
 
         public UnseenHandItemConsumable(Unseen owner, Item item, HandItem_Buff source) : base(owner, item, source)
         {
-            buff = source.buff != null ? source.buff.CopyBuffContainer() : null;
+            buff = source.buff?.CopyBuffContainer();
             secondaryBuffs = new List<BuffContainer>();
             if (source.secondaryBuffs != null) foreach (BuffContainer value in source.secondaryBuffs) if (value != null) secondaryBuffs.Add(value.CopyBuffContainer());
             useSecondaryBuffs = source.useSecondaryBuffs;
@@ -302,7 +306,7 @@ namespace Celestial.CustomEndless
         {
             gripAmount = source.gripAmountAdded;
             healAmount = source.healAmount;
-            buff = source.buff != null ? source.buff.CopyBuffContainer() : null;
+            buff = source.buff?.CopyBuffContainer();
             useBuff = source.useBuff;
         }
 

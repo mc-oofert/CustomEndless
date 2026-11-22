@@ -21,7 +21,7 @@ namespace Celestial.CustomEndless
 
             M_Level source = branch.parentLevel.GetLevel();
             M_Level lastLevel = branch.levelTracker[branch.levelTracker.Count - 1]?.GetLevel();
-            M_Region shortcutRegion = lastLevel != null ? lastLevel.region : null;
+            M_Region shortcutRegion = lastLevel?.region;
             M_Region campaignRegion = EndlessConfiguration.GetCampaignRegionForLevel(source) ?? EndlessConfiguration.GetCampaignRegionForBranch(branch);
             if (campaignRegion == null || shortcutRegion == null)
                 return;
@@ -266,7 +266,7 @@ namespace Celestial.CustomEndless
     {
         internal static bool IsTransitionRoom(M_Level level)
         {
-            string name = level != null ? level.levelName : null;
+            string name = level?.levelName;
             if (string.IsNullOrEmpty(name) && level != null) name = level.name;
             return !string.IsNullOrEmpty(name) &&
                 (name.StartsWith("Adaptor_", System.StringComparison.OrdinalIgnoreCase) ||
@@ -293,7 +293,7 @@ namespace Celestial.CustomEndless
             private static void Prefix(GameObject g)
             {
                 WorldLoader loader = WorldLoader.instance;
-                M_Level level = g != null ? g.GetComponent<M_Level>() : null;
+                M_Level level = g?.GetComponent<M_Level>();
                 if (loader == null || level == null || level.transform.parent != loader.transform ||
                     CL_GameManager.GetCurrentGamemode() != EndlessConfiguration.EndlessMode)
                     return;
@@ -320,7 +320,7 @@ namespace Celestial.CustomEndless
             WorldLoader.LevelInfo previousInfo = branch.levelTracker != null && branch.levelTracker.Count > 0
                 ? branch.levelTracker[branch.levelTracker.Count - 1]
                 : branch.parentLevel;
-            M_Level previousLevel = previousInfo != null ? previousInfo.GetLevel() : null;
+            M_Level previousLevel = previousInfo?.GetLevel();
             if (!ShouldCorrect(previousLevel, level))
                 return false;
 
@@ -383,7 +383,7 @@ namespace Celestial.CustomEndless
             WorldLoader.LevelInfo previousInfo = branch.levelTracker != null && branch.levelTracker.Count > 0
                 ? branch.levelTracker[branch.levelTracker.Count - 1]
                 : branch.parentLevel;
-            M_Level previousLevel = previousInfo != null ? previousInfo.GetLevel() : null;
+            M_Level previousLevel = previousInfo?.GetLevel();
             if (!ShouldCorrect(previousLevel, level))
                 return false;
 

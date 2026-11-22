@@ -79,10 +79,7 @@ public class RemoveOnClick : MonoBehaviour, IPointerClickHandler
         if (isLeftClick)
         {
             MenuSettingsManager menuManager = FindObjectOfType<MenuSettingsManager>();
-            if (menuManager != null)
-            {
-                menuManager.LoadMenu(regionName, slotIndex);
-            }
+            menuManager?.LoadMenu(regionName, slotIndex);
         }
     }
 }

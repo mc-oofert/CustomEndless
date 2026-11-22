@@ -42,7 +42,7 @@ namespace Celestial.CustomEndless
         private static EndlessLoopScalingState GetState(Component enemy)
         {
             EndlessLoopScalingState state = enemy.GetComponent<EndlessLoopScalingState>();
-            return state != null ? state : enemy.gameObject.AddComponent<EndlessLoopScalingState>();
+            return state ?? enemy.gameObject.AddComponent<EndlessLoopScalingState>();
         }
 
         private static float LoopFactor(float increasePerLoop)

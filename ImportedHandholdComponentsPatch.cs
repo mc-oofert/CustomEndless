@@ -8,7 +8,7 @@ namespace Celestial.CustomEndless
     {
         private static bool Prefix(GameObject source, GameObject target)
         {
-            M_Level level = target != null ? target.GetComponentInParent<M_Level>() : null;
+            M_Level level = target?.GetComponentInParent<M_Level>();
             if (source == null || level == null || level.transform.Find("Geometry") == null ||
                 CL_GameManager.GetCurrentGamemode() != EndlessConfiguration.EndlessMode) return true;
             MeshFilter mesh = target.GetComponent<MeshFilter>();

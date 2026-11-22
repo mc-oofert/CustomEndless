@@ -118,7 +118,7 @@ namespace MortarLib
             if (tagger == null) return;
 
             Hitbox hitbox = tagger.GetComponent<Hitbox>();
-            GameEntity gameEntity = hitbox != null ? hitbox.GetGameEntity() : null;
+            GameEntity gameEntity = hitbox?.GetGameEntity();
             if (gameEntity != null)
             {
                 tagger = gameEntity.GetTagger();
@@ -143,9 +143,9 @@ namespace MortarLib
                 {
                     gameEntity.AddForceAtPosition(Camera.main.transform.forward * (knockback * 20f), hitPoint, "");
                 }
-                else if (gameEntity != null)
+                else
                 {
-                    gameEntity.AddForce(Camera.main.transform.forward * (knockback * 10f), "");
+                    gameEntity?.AddForce(Camera.main.transform.forward * (knockback * 10f), "");
                 }
             }
         }
@@ -284,10 +284,7 @@ namespace MortarLib
             if (item is HandItem_BlinkEye blinkEye)
             {
                 blinkEye.CancelBlink();
-                if (blinkEye.crushEffect != null)
-                {
-                    blinkEye.crushEffect.Stop();
-                }
+                blinkEye.crushEffect?.Stop();
             }
 
             if (item is HandItem_Food food)

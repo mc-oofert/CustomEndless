@@ -25,7 +25,7 @@ public class OrderingContainer : MonoBehaviour
         int newSlotIndex = activeSlots.Count;
         if (newSlotIndex >= 50) return;
         UISettingsManager.instance.add_slot_to_end(regionName);
-        Transform parent = slotParent != null ? slotParent : transform;
+        Transform parent = slotParent ?? transform;
         GameObject slotObj = Instantiate(slotPrefab, parent);
         RemoveOnClick slotItem = slotObj.GetComponent<RemoveOnClick>();
         if (slotItem == null) slotItem = slotObj.AddComponent<RemoveOnClick>();

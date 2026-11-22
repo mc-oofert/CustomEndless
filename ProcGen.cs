@@ -331,7 +331,7 @@ public class ProcGen
 
         public override Vector3 Spawn(Vector3 position, Quaternion rotation, M_Level level)
         {
-            Transform parentTransform = level != null ? level.transform : null;
+            Transform parentTransform = level?.transform;
             GameObject prefab = GetPrefab("Denizen_Barnacle_Small", level);
 
             if (prefab != null)
@@ -379,7 +379,7 @@ public class ProcGen
 
                         if (prefabTongue != null)
                         {
-                            Transform tongueParent = prefabTongue.transform.parent != null ? prefabTongue.transform.parent : barnacle.transform;
+                            Transform tongueParent = prefabTongue.transform.parent ?? barnacle.transform;
 
                             prefabTongue.transform.localPosition = Vector3.zero;
 
@@ -445,10 +445,7 @@ public class ProcGen
                         UnityEngine.Object.Instantiate(prefab2, barnacle.transform.position, Quaternion.identity, instance.transform);
                     }
 
-                    if (barnacle.gameObject != null)
-                    {
-                        barnacle.gameObject.SetActive(true);
-                    }
+                    barnacle.gameObject?.SetActive(true);
 
                     barnacle.enabled = true;
                     barnacle.Start();
@@ -1222,10 +1219,7 @@ public class ProcGen
             }
 
             CanvasRenderer canvasRenderer = go.GetComponent<CanvasRenderer>();
-            if (canvasRenderer != null)
-            {
-                canvasRenderer.SetColor(targetColor);
-            }
+            canvasRenderer?.SetColor(targetColor);
         }
     }
 }

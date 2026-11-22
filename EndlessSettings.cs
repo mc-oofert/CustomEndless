@@ -131,10 +131,7 @@ CL_AssetManager.GetFullCombinedAssetDatabase()
             panelButton = GetComponent<Button>();
         }
 
-        if (panelButton != null)
-        {
-            panelButton.onClick.AddListener(OnPanelClicked);
-        }
+        panelButton?.onClick.AddListener(OnPanelClicked);
 
         RegisterAllSettings();
     }
@@ -265,9 +262,6 @@ CL_AssetManager.GetFullCombinedAssetDatabase()
 
     public void OnPanelClicked()
     {
-        if (menuSettingsManager != null)
-        {
-            menuSettingsManager.LoadMenu(menuTag);
-        }
+        menuSettingsManager?.LoadMenu(menuTag);
     }
 }

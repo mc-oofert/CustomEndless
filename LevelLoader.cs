@@ -19,7 +19,7 @@ public static class CustomLevelLoader
     {
         CacheNativeRoomShaders();
         Type frameworkType = Type.GetType("Severon.GamemodeFramework.GamemodeFramework, GamemodeFramework", false);
-        MethodInfo frameworkLoader = frameworkType == null ? null : frameworkType.GetMethod("LoadLevel", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string), typeof(string), typeof(string), typeof(string) }, null);
+        MethodInfo frameworkLoader = frameworkType?.GetMethod("LoadLevel", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string), typeof(string), typeof(string), typeof(string) }, null);
         if (frameworkLoader != null)
         {
 
@@ -46,8 +46,9 @@ public static class CustomLevelLoader
     internal static IEnumerable<string> GetRoomAssetNames(string bundlePath)
     {
         AssetBundle bundle = GetRoomBundle(bundlePath);
-        if (bundle == null) return Array.Empty<string>();
-        return Array.ConvertAll(Array.FindAll(bundle.GetAllAssetNames(), path => path.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase)), Path.GetFileNameWithoutExtension);
+        return bundle == null
+            ? Array.Empty<string>()
+            : (IEnumerable<string>)Array.ConvertAll(Array.FindAll(bundle.GetAllAssetNames(), path => path.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase)), Path.GetFileNameWithoutExtension);
     }
 
     private static AssetBundle GetRoomBundle(string bundlePath)
@@ -259,7 +260,7 @@ public static class CustomLevelLoader
 
     public static void ClearCache()
     {
-        foreach (AssetBundle bundle in _cachedBundles.Values) if (bundle != null) bundle.Unload(false);
+        foreach (AssetBundle bundle in _cachedBundles.Values) bundle?.Unload(false);
         _cachedBundles.Clear();
     }
 

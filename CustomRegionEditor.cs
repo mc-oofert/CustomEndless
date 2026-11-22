@@ -193,7 +193,7 @@ public static class CustomRegionEditor
         layout.childForceExpandHeight = false;
         foreach (Transform row in rows) row.SetParent(card.transform, false);
         Transform settings = menu.Content.Find(sub.name.ToUpperInvariant());
-        if (settings != null) settings.SetParent(card.transform, false);
+        settings?.SetParent(card.transform, false);
         menu.TrackInstance(card);
         Dictionary<GameObject, bool> visible = new Dictionary<GameObject, bool>();
         UnityEngine.UI.Button toggle = null;
@@ -314,7 +314,7 @@ public static class CustomRegionEditor
     private static TMP_FontAsset Font(Transform parent)
     {
         Canvas canvas = parent.GetComponentInParent<Canvas>(true);
-        TMP_Text source = canvas != null ? canvas.GetComponentInChildren<TMP_Text>(true) : null;
+        TMP_Text source = canvas?.GetComponentInChildren<TMP_Text>(true);
         return source != null ? source.font : TMP_Settings.defaultFontAsset;
     }
 
@@ -430,7 +430,7 @@ public static class CustomRegionEditor
             RectTransform content = menu.Content as RectTransform;
             Vector2 position = content != null ? content.anchoredPosition : Vector2.zero;
             UnityEngine.UI.ScrollRect scroll = menu.GetComponent<UnityEngine.UI.ScrollRect>();
-            if (scroll != null) scroll.StopMovement();
+            scroll?.StopMovement();
             CustomRegions.RefreshCatalog();
             for (int i = suggestions.transform.childCount - 1; i >= 0; i--)
             {

@@ -35,9 +35,9 @@ namespace Celestial.CustomEndless
         private static string DoorKey(string name)
         {
             string key = Regex.Replace(Regex.Replace(name ?? string.Empty, @"\.\d+$", ""), "[^a-zA-Z0-9]", "").ToLowerInvariant();
-            if (Regex.IsMatch(key, "^(entrance|exit)(left|right)(inner|outer)[0-9]*$"))
-                return "envhabbluedoor02" + (key.Contains("left") ? "l" : "r");
-            return key;
+            return Regex.IsMatch(key, "^(entrance|exit)(left|right)(inner|outer)[0-9]*$")
+                ? "envhabbluedoor02" + (key.Contains("left") ? "l" : "r")
+                : key;
         }
 
         private static bool IsDoorPanel(string name)
@@ -100,7 +100,7 @@ namespace Celestial.CustomEndless
                             DoorKey(candidate.name).StartsWith(key.StartsWith("envhabbluedoor02l") ? "envhabbluedoor02r" : "envhabbluedoor02l") &&
                             Vector3.Distance(candidate.position, panel.position) < 0.5f);
                         Renderer renderer = panel.GetComponentInChildren<Renderer>(true);
-                        Renderer otherRenderer = other != null ? other.GetComponentInChildren<Renderer>(true) : null;
+                        Renderer otherRenderer = other?.GetComponentInChildren<Renderer>(true);
                         Vector3 direction = otherRenderer != null ? renderer.bounds.center - otherRenderer.bounds.center : panel.right * (key.StartsWith("envhabbluedoor02l") ? 1f : -1f);
                         movement = direction.normalized * 2.26f;
                     }
@@ -121,8 +121,8 @@ namespace Celestial.CustomEndless
                 }
                 doors.Add(door);
                 Renderer closedRenderer = panel.GetComponentInChildren<Renderer>(true);
-                Transform entrance = level != null ? level.GetLevelEntrance() : null;
-                Transform exit = level != null ? level.GetLevelExit() : null;
+                Transform entrance = level?.GetLevelEntrance();
+                Transform exit = level?.GetLevelExit();
                 Transform connector = null;
                 if (closedRenderer != null)
                 {
@@ -138,9 +138,11 @@ namespace Celestial.CustomEndless
 
         private static bool Connected(DoorBinding first, DoorBinding second)
         {
-            if (first.connector == null || second.connector == null || first.owner == null || second.owner == null) return false;
-            if (first.owner == second.owner) return first.connector == second.connector;
-            return (first.connector.position - second.connector.position).sqrMagnitude <= 0.0625f &&
+            return first.connector == null || second.connector == null || first.owner == null || second.owner == null
+                ? false
+                : first.owner == second.owner
+                ? first.connector == second.connector
+                : (first.connector.position - second.connector.position).sqrMagnitude <= 0.0625f &&
                 Mathf.Abs(Vector3.Dot(first.connector.forward, second.connector.forward)) >= 0.99f;
         }
 

@@ -356,7 +356,6 @@ namespace Celestial.CustomEndless
             subregion.useLevelCount = true;
             subregion.subregionMinLength = 1;
             subregion.subregionMaxLength = 1;
-            subregion.levelReferences = new List<M_Level.LevelAssetHolder>();
             subregion.startLevelReferences = new List<M_Level.LevelAssetHolder>();
             subregion.endLevelReferences = new List<M_Level.LevelAssetHolder>();
             subregion.levelGroups = new List<M_Subregion.LevelGroup>

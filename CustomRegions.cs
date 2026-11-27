@@ -1,4 +1,5 @@
 using Celestial.CustomEndless;
+using CustomEndless;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -126,9 +127,7 @@ public static class CustomRegions
     {
         if (sub == null || sub.name.Contains("_RuntimeCopy") || sub.name.StartsWith("customsubregion_", StringComparison.OrdinalIgnoreCase)) return;
         subregions[sub.name] = sub;
-        AddLevels(sub.startLevelReferences);
-        AddLevels(sub.levelReferences);
-        AddLevels(sub.endLevelReferences);
+        AddLevels(sub.GetLevelReferences(includingStartAndEnd: true));
         if (sub.levelGroups != null) foreach (M_Subregion.LevelGroup group in sub.levelGroups) AddLevels(group?.levelReferences);
     }
 
@@ -260,7 +259,7 @@ public static class CustomRegions
             append(source.startLevelReferences);
             if (source.levelGroups != null && source.levelGroups.Count > 0)
                 foreach (M_Subregion.LevelGroup group in source.levelGroups) append(group?.levelReferences);
-            else append(source.levelReferences);
+            else append(source.GetLevelReferences());
             append(source.endLevelReferences);
             string key = "subregion_" + sub.id;
             data.settings.boolKeys.Add(key + "_ordered");

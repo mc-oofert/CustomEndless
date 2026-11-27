@@ -1,7 +1,9 @@
+using CustomEndless;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -851,7 +853,6 @@ namespace Celestial.CustomEndless
             clone.difficulty *= GetFloatStateForSlot($"subregion_{subKey}_difficulty_mult", "campaign", slot);
             clone.massSpeedMult *= GetFloatStateForSlot($"subregion_{subKey}_mass_mult", "campaign", slot);
             clone.spaceCompression *= GetFloatStateForSlot($"subregion_{subKey}_space_mult", "campaign", slot);
-            clone.levelReferences = CloneCampaignHolders(original.levelReferences, region, clone);
             clone.startLevelReferences = CloneCampaignHolders(original.startLevelReferences, region, clone);
             clone.endLevelReferences = CloneCampaignHolders(original.endLevelReferences, region, clone);
             clone.levelGroups = new List<M_Subregion.LevelGroup>();
@@ -1001,7 +1002,8 @@ namespace Celestial.CustomEndless
             UnityEngine.Random.State randomState = UnityEngine.Random.state;
             try
             {
-                List<M_Level.LevelAssetHolder> levels = subregion.GetGenerationLevels().fullList;
+                var rng = CL_GameManager.GetSeededRandom(null);
+                List<M_Level.LevelAssetHolder> levels = subregion.GetGenerationLevels(ref rng).fullList;
                 if (levels == null) return 0f;
                 float length = 0f;
                 foreach (M_Level.LevelAssetHolder level in levels) if (level != null) length += level.length;

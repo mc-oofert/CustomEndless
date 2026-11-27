@@ -1,3 +1,4 @@
+using CustomEndless;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -98,22 +99,24 @@ namespace Celestial.CustomEndless
                 asset.flagBlacklist = new List<string>();
                 asset.startLevelReferences = new List<M_Level.LevelAssetHolder>();
                 asset.endLevelReferences = new List<M_Level.LevelAssetHolder>();
-                asset.levelReferences = new List<M_Level.LevelAssetHolder>();
                 asset.levelGroups = new List<M_Subregion.LevelGroup>();
                 if (asset.sessionEventLists == null) asset.sessionEventLists = new List<SessionEventList>();
                 if (asset.radioStations == null) asset.radioStations = new List<ENV_RadioStation>();
                 asset.difficulty = (template != null ? template.difficulty : 1f) * CustomFloat(data, "subregion_" + sub.id + "_difficulty_mult", slot, 1f);
                 asset.massSpeedMult = (template != null ? template.massSpeedMult : 1f) * CustomFloat(data, "subregion_" + sub.id + "_mass_mult", slot, 1f);
                 asset.spaceCompression = (template != null ? template.spaceCompression : 1f) * CustomFloat(data, "subregion_" + sub.id + "_space_mult", slot, 1f);
+
+                M_Subregion.LevelGroup newGroup = new M_Subregion.LevelGroup { name = sub.name, length = 0, endSubregion = true };
                 foreach (string id in sub.levels)
                 {
                     M_Level.LevelAssetHolder holder = CopyCustomHolder(CustomRegions.ResolveLevel(id), region, asset);
-                    if (holder != null) asset.levelReferences.Add(holder);
+                    if (holder != null) newGroup.levelReferences.Add(holder);
                 }
-                if (asset.levelReferences.Count == 0) { UnityEngine.Object.Destroy(asset); continue; }
-                asset.levelGroups.Add(new M_Subregion.LevelGroup { name = sub.name, length = 0, levelReferences = asset.levelReferences, endSubregion = true });
+                if (newGroup.levelReferences.Count == 0) { UnityEngine.Object.Destroy(asset); continue; }
+                asset.levelGroups.Add(newGroup);
+
                 asset.useLevelCount = true;
-                asset.subregionMinLength = asset.subregionMaxLength = asset.levelReferences.Count;
+                asset.subregionMinLength = asset.subregionMaxLength = newGroup.levelReferences.Count;
                 RegisterGeneratedSubregion(asset);
                 if (database != null && !database.subRegionAssets.Contains(asset)) database.subRegionAssets.Add(asset);
                 region.subregionGroups.Add(new M_Region.SubregionGroup { name = sub.name, subregions = new List<M_Subregion> { asset } });
@@ -193,7 +196,7 @@ namespace Celestial.CustomEndless
                 __result = new List<M_Level.LevelAssetHolder>();
                 foreach (var sub in ordered)
                 {
-                    List<M_Level.LevelAssetHolder> pool = sub.Asset.levelReferences;
+                    List<M_Level.LevelAssetHolder> pool = sub.Asset.GetLevelReferences();
                     bool inOrder = CustomBool(generation.Data, "subregion_" + sub.Data.id + "_ordered", generation.Slot, true);
                     int count = inOrder ? pool.Count : Mathf.Max(0, Mathf.RoundToInt(CustomCount(generation.Data, "subregion_" + sub.Data.id + "_level_count", generation.Slot, pool.Count) * Mathf.Max(0f, CustomFloat(generation.Data, generation.Data.id + "_length_mult", generation.Slot, 1f))));
                     for (int i = 0; i < count; i++)

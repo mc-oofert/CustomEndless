@@ -56,7 +56,8 @@ public static class PerkPatcher
         currentCanSpawnPerkId = __instance.id;
         try
         {
-            __result = __instance.spawnSettings.RandomCheck();
+            var rng = CL_GameManager.GetSeededRandom(null);
+            __result = __instance.spawnSettings.RandomCheck(ref rng);
         }
         finally
         {

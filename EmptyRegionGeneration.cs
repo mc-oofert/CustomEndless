@@ -48,7 +48,7 @@ namespace Celestial.CustomEndless
             }
 
             [HarmonyPriority(Priority.First)]
-            private static bool Prefix(M_Region __instance, M_Region lastRegion,
+            private static bool Prefix(M_Region __instance, ref PcgRandom rng, M_Region lastRegion,
                 ref List<M_Level.LevelAssetHolder> __result, out RegionState __state)
             {
                 __state = null;
@@ -65,7 +65,7 @@ namespace Celestial.CustomEndless
                 if ((lastRegion == null || __instance.forceStartLevel) && __instance.startLevelReferences != null)
                     __result.AddRange(__instance.startLevelReferences.Where(Valid));
                 else if (lastRegion != null && __instance.transitionLevels != null)
-                    __result.AddRange(__instance.GetTransitionLevels(lastRegion) ?? new List<M_Level.LevelAssetHolder>());
+                    __result.AddRange(__instance.GetTransitionLevels(ref rng, lastRegion) ?? new List<M_Level.LevelAssetHolder>());
                 foreach (M_Level.LevelAssetHolder holder in __result) holder.region = __instance;
                 return false;
             }
@@ -89,7 +89,7 @@ namespace Celestial.CustomEndless
         [HarmonyPatch(typeof(M_Gamemode), nameof(M_Gamemode.GetGenerationList))]
         private static class GamemodePatch
         {
-            private static bool Prefix(M_Gamemode __instance, M_Region lastRegion, M_Region regionToGenerate,
+            private static bool Prefix(M_Gamemode __instance, ref PcgRandom rng, M_Region lastRegion, M_Region regionToGenerate,
                 M_Subregion startAfterSubregion, ref List<M_Level.LevelAssetHolder> __result)
             {
                 if (__instance != EndlessConfiguration.EndlessMode) return true;
@@ -97,7 +97,7 @@ namespace Celestial.CustomEndless
                 List<M_Region> regions = (__instance.regions ?? new List<M_Region>()).Where(region => region != null).ToList();
                 if (regionToGenerate != null)
                 {
-                    result.AddRange(regionToGenerate.GetLevels(lastRegion, startAfterSubregion));
+                    result.AddRange(regionToGenerate.GetLevels(ref rng, lastRegion, startAfterSubregion));
                     lastRegion = regionToGenerate;
                 }
                 int start = regions.IndexOf(lastRegion) + 1;
@@ -107,7 +107,7 @@ namespace Celestial.CustomEndless
                 for (int i = 0; regions.Count > 0 && result.Count < limit && empty < regions.Count && i < limit + regions.Count; i++)
                 {
                     M_Region region = regions[(start + i) % regions.Count];
-                    List<M_Level.LevelAssetHolder> levels = region.GetLevels(lastRegion);
+                    List<M_Level.LevelAssetHolder> levels = region.GetLevels(ref rng, lastRegion);
                     if (levels.Count == 0)
                     {
                         empty++;
@@ -128,7 +128,7 @@ namespace Celestial.CustomEndless
         [HarmonyPatch(typeof(M_GenerationBranch), nameof(M_GenerationBranch.GetGenerationList))]
         private static class BranchPatch
         {
-            private static bool Prefix(M_GenerationBranch __instance, M_Region lastRegion, M_Region regionToGenerate,
+            private static bool Prefix(M_GenerationBranch __instance, ref PcgRandom rng, M_Region lastRegion, M_Region regionToGenerate,
                 M_Subregion startAfterSubregion, ref List<M_Level.LevelAssetHolder> __result)
             {
                 if (CL_GameManager.GetCurrentGamemode() != EndlessConfiguration.EndlessMode) return true;
@@ -146,7 +146,7 @@ namespace Celestial.CustomEndless
                     List<M_Region> regions = (__instance.regions ?? new List<M_Region>()).Where(region => region != null).ToList();
                     if (regionToGenerate != null)
                     {
-                        result.AddRange(regionToGenerate.GetLevels(lastRegion, startAfterSubregion));
+                        result.AddRange(regionToGenerate.GetLevels(ref rng, lastRegion, startAfterSubregion));
                         current = regionToGenerate;
                         lastRegion = regionToGenerate;
                     }
@@ -157,7 +157,7 @@ namespace Celestial.CustomEndless
                     for (int i = 0; regions.Count > 0 && result.Count < limit && empty < regions.Count && i < limit + regions.Count; i++)
                     {
                         M_Region region = regions[(start + i) % regions.Count];
-                        List<M_Level.LevelAssetHolder> levels = region.GetLevels(lastRegion);
+                        List<M_Level.LevelAssetHolder> levels = region.GetLevels(ref rng, lastRegion);
                         if (levels.Count == 0)
                         {
                             empty++;
@@ -175,9 +175,8 @@ namespace Celestial.CustomEndless
                     __result = Fallback();
                     return false;
                 }
-                object[] arguments = { result, lastRegion, current };
-                AccessTools.Method(typeof(M_GenerationBranch), "FinalizeLevelList").Invoke(__instance, arguments);
-                __result = (List<M_Level.LevelAssetHolder>)arguments[0];
+                __instance.FinalizeLevelList(ref rng, ref result, lastRegion, current);
+                __result = result;
                 return false;
             }
         }

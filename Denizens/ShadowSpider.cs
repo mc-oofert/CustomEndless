@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using HarmonyLib;
+using Unity.VisualScripting;
 namespace Celestial.CustomEndless
 {
     [HarmonyPatch(typeof(M_Level), "OnEnter")]

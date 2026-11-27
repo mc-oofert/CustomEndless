@@ -9,11 +9,11 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CustomEndless</RootNamespace>
-    <AssemblyName>CustomEndless</AssemblyName>
+    <AssemblyName>OddsAndEnds</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
+	<NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <Import Project="Path.props" />
@@ -34,6 +34,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+	<Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+		<ItemGroup>
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+		</ItemGroup>
+	</Target>
   <ItemGroup>
 	<Publicize Include="Assembly-CSharp" />
     <Reference Include="$(BepInExPath)\core\*.dll" Exclude="$(BepInExPath)\core\*20.dll" />

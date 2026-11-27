@@ -20,7 +20,6 @@ namespace Celestial.CustomEndless
         }
 
         private static readonly List<DuctState> ductStates = new List<DuctState>();
-        private static readonly FieldInfo cachedLevelBounds = AccessTools.Field(typeof(M_Level), "currentBoundsLocal");
         private static bool ductUnloadInProgress;
 
         private static bool IsDuct(M_Level level)
@@ -39,8 +38,8 @@ namespace Celestial.CustomEndless
             {
                 duct = new DuctState { Level = level };
                 ductStates.Add(duct);
-                if (level.customBounds && cachedLevelBounds != null)
-                    cachedLevelBounds.SetValue(level, level.levelBounds);
+                if (level.customBounds)
+                    level.currentBoundsLocal = level.levelBounds;
             }
 
             if (duct.Button == null)

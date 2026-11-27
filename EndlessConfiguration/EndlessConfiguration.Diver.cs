@@ -324,7 +324,7 @@ namespace Celestial.CustomEndless
             level.lodAsset = null;
             level.customBounds = true;
             level.levelBounds = new Bounds(new Vector3(0f, length * 0.5f, 0f), new Vector3(16f, length, 16f));
-            cachedLevelBounds?.SetValue(level, level.levelBounds);
+            level.currentBoundsLocal = level.levelBounds;
 
             EndlessDiverLevel levelMarker = level.gameObject.AddComponent<EndlessDiverLevel>();
             levelMarker.Diver = diver;
@@ -757,23 +757,16 @@ namespace Celestial.CustomEndless
             }
         }
 
-        [HarmonyPatch]
-        private static class DiverCustomTeleportTriggerPatch
+        [HarmonyPatch(typeof(TeleportTrigger), "OnTriggerEnter")]
+        [HarmonyPostfix]
+        private static void DiverCustomTeleportTriggerPatch(TeleportTrigger __instance, Collider other)
         {
-            private static MethodBase TargetMethod()
-            {
-                return AccessTools.Method(typeof(TeleportTrigger), "OnTriggerEnter");
-            }
+            if (__instance == null || other == null || other.GetComponentInParent<ENT_Player>() == null)
+                return;
 
-            private static void Postfix(TeleportTrigger __instance, Collider other)
-            {
-                if (__instance == null || other == null || other.GetComponentInParent<ENT_Player>() == null)
-                    return;
-
-                M_Level level = __instance.GetComponentInParent<M_Level>();
-                if (IsDiverTransition(level))
-                    StartDiverSummon(level, false);
-            }
+            M_Level level = __instance.GetComponentInParent<M_Level>();
+            if (IsDiverTransition(level))
+                StartDiverSummon(level, false);
         }
 
         [HarmonyPatch(typeof(WorldLoader), nameof(WorldLoader.GetClosestLevelToPosition))]

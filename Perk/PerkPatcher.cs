@@ -364,7 +364,7 @@ public static class MassControllerStackPatcher
         if (!EndlessConfiguration.CustomUIManager.GetToggleState("fun_limitless_perks")) return;
         float multiplier = Mathf.Max(1f, (float)___perk.GetStackAmount());
         DEN_DeathFloor.instance?.SetUpdateSpeedMultiplier(__instance.massMult * multiplier);
-        AccessTools.Method(typeof(DEN_Face), "SetGlobalUpdateSpeedMultiplier")?.Invoke(null, new object[] { __instance.massMult * multiplier });
+        DEN_Face.SetGlobalUpdateSpeedMultiplier(__instance.massMult * multiplier);
     }
 }
 
@@ -381,7 +381,7 @@ public static class MassProximityStackPatcher
         {
             float multiplier = Mathf.Max(1f, (float)___perk.GetStackAmount());
             DEN_DeathFloor.instance.SetUpdateSpeedMultiplier(__instance.proximityMassSpeedMult * multiplier);
-            AccessTools.Method(typeof(DEN_Face), "SetGlobalUpdateSpeedMultiplier")?.Invoke(null, new object[] { __instance.proximityMassSpeedMult * multiplier });
+            DEN_Face.SetGlobalUpdateSpeedMultiplier(__instance.proximityMassSpeedMult * multiplier);
         }
     }
 }

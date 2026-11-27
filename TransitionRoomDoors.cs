@@ -19,10 +19,6 @@ namespace Celestial.CustomEndless
         }
 
         private static readonly Dictionary<UT_Door, DoorBinding> bindings = new Dictionary<UT_Door, DoorBinding>();
-        private static readonly AccessTools.FieldRef<UT_Door, bool> DoorOpen = AccessTools.FieldRefAccess<UT_Door, bool>("open");
-        private static readonly AccessTools.FieldRef<UT_Door, float> DoorAmount = AccessTools.FieldRefAccess<UT_Door, float>("lerpAmount");
-        private static readonly AccessTools.FieldRef<UT_Door, bool> DoorMoving = AccessTools.FieldRefAccess<UT_Door, bool>("autoMoving");
-        private static readonly AccessTools.FieldRef<UT_Door, bool> DoorLatched = AccessTools.FieldRefAccess<UT_Door, bool>("latched");
         private static long nextCommand;
         private static bool synchronizing;
         private readonly List<UT_Door> doors = new List<UT_Door>();
@@ -130,7 +126,7 @@ namespace Celestial.CustomEndless
                     if (exit != null && closedRenderer.bounds.SqrDistance(exit.position) <= 1f &&
                         (connector == null || (exit.position - closedRenderer.bounds.center).sqrMagnitude < (connector.position - closedRenderer.bounds.center).sqrMagnitude)) connector = exit;
                 }
-                bindings[door] = new DoorBinding { door = door, owner = this, connector = connector, open = DoorOpen(door), command = DoorOpen(door) ? ++nextCommand : 0 };
+                bindings[door] = new DoorBinding { door = door, owner = this, connector = connector, open = door.open, command = door.open ? ++nextCommand : 0 };
                 panel.gameObject.isStatic = false;
                 colliders.AddRange(panel.GetComponentsInChildren<Collider>(true));
             }
@@ -171,7 +167,7 @@ namespace Celestial.CustomEndless
             foreach (UT_Door door in doors)
             {
                 if (door == null || !door.gameObject.activeInHierarchy || !bindings.TryGetValue(door, out DoorBinding binding)) continue;
-                if (binding.command > 0 && DoorOpen(door) != binding.open)
+                if (binding.command > 0 && door.open != binding.open)
                 {
                     synchronizing = true;
                     try { if (binding.open) door.Open(); else door.Close(); }
@@ -184,8 +180,8 @@ namespace Celestial.CustomEndless
                     if (candidate.command > leader.command) leader = candidate;
                     else if (candidate.command == leader.command)
                     {
-                        float candidateAmount = DoorAmount(candidate.door);
-                        float leaderAmount = DoorAmount(leader.door);
+                        float candidateAmount = candidate.door.lerpAmount;
+                        float leaderAmount = leader.door.lerpAmount;
                         bool further = candidate.open ? candidateAmount > leaderAmount : candidateAmount < leaderAmount;
                         if (further || (Mathf.Approximately(candidateAmount, leaderAmount) && candidate.door.GetInstanceID() < leader.door.GetInstanceID())) leader = candidate;
                     }
@@ -198,11 +194,11 @@ namespace Celestial.CustomEndless
                     binding.open = leader.open;
                     door.moveSpeed = leader.door.moveSpeed;
                     if (leader.open) door.Open(); else door.Close();
-                    float amount = DoorAmount(leader.door);
-                    if (Mathf.Abs(DoorAmount(door) - amount) > 0.00001f) door.SetOpenAmount(Mathf.Max(amount, 0.000001f));
-                    DoorAmount(door) = amount;
-                    DoorMoving(door) = DoorMoving(leader.door);
-                    DoorLatched(door) = DoorLatched(leader.door);
+                    float amount = leader.door.lerpAmount;
+                    if (Mathf.Abs(door.lerpAmount - amount) > 0.00001f) door.SetOpenAmount(Mathf.Max(amount, 0.000001f));
+                    door.lerpAmount = amount;
+                    door.autoMoving = leader.door.autoMoving;
+                    door.latched = leader.door.latched;
                 }
                 finally { synchronizing = false; }
             }
@@ -217,20 +213,20 @@ namespace Celestial.CustomEndless
         [HarmonyPatch(typeof(UT_Door), nameof(UT_Door.Open))]
         private static class OpenDoorPatch
         {
-            private static void Prefix(UT_Door __instance, out bool __state) { __state = DoorOpen(__instance); }
+            private static void Prefix(UT_Door __instance, out bool __state) { __state = __instance.open; }
             private static void Postfix(UT_Door __instance, bool __state)
             {
-                if (!__state && DoorOpen(__instance)) Synchronize(__instance, true);
+                if (!__state && __instance.open) Synchronize(__instance, true);
             }
         }
 
         [HarmonyPatch(typeof(UT_Door), nameof(UT_Door.Close))]
         private static class CloseDoorPatch
         {
-            private static void Prefix(UT_Door __instance, out bool __state) { __state = DoorOpen(__instance); }
+            private static void Prefix(UT_Door __instance, out bool __state) { __state = __instance.open; }
             private static void Postfix(UT_Door __instance, bool __state)
             {
-                if (__state && !DoorOpen(__instance)) Synchronize(__instance, false);
+                if (__state && !__instance.open) Synchronize(__instance, false);
             }
         }
 
